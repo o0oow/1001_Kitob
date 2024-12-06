@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- linking styles to html document -->
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <title>1001 كتاب</title>
+</head>
+
+<body>
+    <!-- simple container for aligning and for centering -->
+    <div class="container">
+    <div id="main">
+            <div class="header parent">
+                <div class="child icon-header-box-test">
+                    <div class="icons-box test">
+                        <div id="toggle-btn">&#9776;</div>
+                        <i class="fas fa-shopping-cart cart-icon" id="cart-icon" aria-hidden="true">
+                            <div id="selected-amount"></div>
+                        </i>
+                    </div>
+                    <div id="sidebar">
+                        <div class="sidebar-content">
+                            <div id="close-menu">&times;</div>
+                            <h3>MENU</h3>
+                            <a class="change-link" data-category="new" href="#">New Books</a>
+                            <a class="change-link" data-category="bests ellers" href="#">Bestsellers</a>
+                            <a class="change-link" data-category="all" href="#"> All Books </a>
+                        </div>
+                    </div>
+
+                    <div id="cartModal" class="cart-modal">
+                        <div class="cart-modal__content">
+                            <h2>Cart</h2>
+                            <div id="cart-items-container" class="cart-items"></div>
+                            <span id="emptyCart"></span>
+                            <p style="text-align: end">Total price: <span id="total-price">$0.00</span></p>
+                            <p style="text-align: end">Total amount: <span id="amount-of-books">0</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-box child">
+                    <input id="search-input" class="search-input" type="text" placeholder="Search a book..."/>
+                    <i class="fa fa-search search-icon" aria-hidden="true"></i>
+                </div>
+                <div class="modal-buttons child" id="modal-buttons">
+                    <div class="icon-header-box">
+                        <button class="add-book__and__profile-btn" onclick="openModalForUser()"><i style="font-size: 20px" class="fa fa-user" aria-hidden="true"></i></button>
+                        <button id="modalForAdmin" class="add-book__and__profile-btn" onclick="openModalForAddingBook()"><i style="font-size: 15px" class="fas fa-book fa-fw">&#10011;</i></button>
+                    </div>
+                    <div class="icon-header-box-for-login">
+                        <button class="open-login__signup-modal" onclick="openModalForAuth()">Log in | Sign up</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="myModalForAddingBook" class="modal-container">
+                <div class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModalForAddingBook()">&times;</span>
+                        <div class="form-container active">
+                            <form class="form-box">
+                                <h3 style="width: 250px">Add a book to the catalog</h3>
+                                <div class="labels-and-inputs">
+                                    <label for="bookName">Name of book:</label><br>
+                                    <input required type="text" id="bookName" name="bookName"/>
+                                </div>
+                                <div class="labels-and-inputs">
+                                    <label for="price">Price:</label><br>
+                                    <input required type="number" id="price" name="price"/>
+                                </div>
+                                <div class="labels-and-inputs">
+                                    <label for="amount">Amount:</label><br>
+                                    <input required type="number" id="amount" name="amount"/>
+                                </div>
+                                <div class="labels-and-inputs">
+                                    <label for="category">Category:</label><br>
+                                    <input required type="text" id="category" name="category"/>
+                                </div>
+                                <div class="labels-and-inputs">
+                                    <label for="photo">Photo:</label><br>
+                                    <input required type="file" id="photo" name="photo" accept="image/*"/>
+                                </div>
+                                <button onclick="onAddBookToCatalog()" id="addBookToCatalog" class="submit" type="button">+Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="myModalForUser" class="modal-container">
+                <div class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModalForUser()">&times;</span>
+                        <div class="form-container active">
+                            <form class="form-box">
+                                <h3 style="width: 100px">User Profile</h3>
+                                <div class="labels-and-inputs user-avatar" id="avatar-container">
+                                    <label for="avatar-input">
+                                        <div class="avatar-icon">
+                                            <i style="font-size: 35px; color: #8d967b" class="fa fa-user" aria-hidden="true"></i>
+                                        </div>
+                                        <input type="file" id="avatar-input" style="display: none;" accept="image/*">
+                                    </label>
+                                </div>
+                                <div class="labels-and-inputs">
+                                    <span id="loggedUserName">Username:</span>
+                                </div>
+                                <div class="labels-and-inputs">
+                                    <span>more info...</span>
+                                </div>
+                                <button onclick="" id="logOutBtn" class="submit" type="submit">Log out</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="myModalForAuth" class="modal-container">
+                <div class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModalForAuth()">&times;</span>
+                        <!-- Форма авторизации -->
+                        <div id="loginForm" class="form-container active">
+                            <div class="form-box">
+                                <h3>Authorization</h3>
+                                <form class="form">
+                                    <div class="labels-and-inputs">
+                                        <label for="loginName">Username:</label><br>
+                                        <input required type="text" id="loginName" name="login"/>
+                                    </div>
+                                    <div class="labels-and-inputs">
+                                        <label for="loginPassword">Password:</label><br>
+                                        <input required type="password" id="loginPassword" name="password"/>
+                                    </div>
+                                    <button onclick="logIn()" id="logInBtn" class="submit" type="button">Continue</button>
+                                </form>
+                                <p>Do not have an account?
+                                    <a href="#" class="change-link" onclick="showForm('signInForm')">Sign up</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Форма регистрации -->
+                        <div id="signInForm" class="form-container">
+                            <div class="form-box">
+                                <h3>Create your account</h3>
+                                <form class="form">
+                                    <div class="labels-and-inputs">
+                                        <label for="name">Name:</label><br>
+                                        <input required type="text" id="name" name="name"/>
+                                    </div>
+                                    <div class="labels-and-inputs">
+                                        <label for="Email">Email:</label><br>
+                                        <input required type="email" id="Email" name="Email"/>
+                                    </div>
+                                    <div class="labels-and-inputs">
+                                        <label for="Username">Username:</label><br>
+                                        <input required type="text" id="Username" name="Username"/>
+                                    </div>
+                                    <div class="labels-and-inputs">
+                                        <label for="newPassword">Password:</label><br>
+                                        <input required type="password" id="newPassword" name="newPassword"/>
+                                    </div>
+                                    <button onclick="signup()" id="signUpBtn" class="submit" type="submit">Submit</button>
+                                </form>
+                                <p>Already have an account??
+                                    <a href="#" class="change-link" onclick="showForm('loginForm')">Log in</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <h1 class="block-title" id="block-title">All books</h1>
+            <div id="products-block" class="products-block"></div>
+        </div>
+
+        <footer class="footer">
+                <div class="footer-container">
+                        <div class="footer-rows">
+                            <h3>About us</h3>
+                            <h3>Contacts</h3>
+                            <h3>Social media</h3>
+                        </div>
+                        <div class="footer-rows">
+                            <div>
+                                <p>
+                                    We are a book store offering a wide range of books from various genres and authors. Whether you're looking for classic works or the latest releases, you'll find them here.
+                                </p>
+                            </div>
+                            <div style="display:flex; flex-direction: column; justify-content: space-between; align-items: center">
+                                <p>Адрес: ул. Примерная, 12345, Город</p>
+                                <p>Телефон: +7 123 456 789</p>
+                                <p>Email: info@example.com</p>
+                            </div>
+                            <div>
+                                <ul class="social-media">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                </div>
+        </footer>
+    </div>
+    <script src="./scripts/script.js"></script>
+</body>
+
+<footer>
+
+</footer>
+
+</html>
